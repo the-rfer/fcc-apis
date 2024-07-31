@@ -24,13 +24,14 @@ let urlCounter = 1;
 
 function isValidUrl(url) {
     const urlPattern =
-        /^(http:\/\/www\.|https:\/\/www\.)[a-zA-Z0-9-]{1,63}\.[a-zA-Z]{2,6}$/;
+        /^(http:\/\/|https:\/\/)(www\.)?[a-zA-Z0-9-]{1,63}\.[a-zA-Z]{2,6}$/;
+    console.log('received url test result: ', urlPattern.test(url));
     return urlPattern.test(url);
 }
 
 app.post('/api/shorturl', function (req, res) {
     const { url } = req.body;
-
+    console.log('url being used: ', url);
     if (!isValidUrl(url)) {
         return res.json({ error: 'invalid url' });
     }
