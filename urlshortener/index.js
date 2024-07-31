@@ -18,7 +18,6 @@ app.get('/api/hello', function (req, res) {
     res.json({ greeting: 'hello API' });
 });
 
-// additions:
 const urlMappings = {};
 let urlCounter = 1;
 
@@ -58,8 +57,6 @@ app.get('/api/shorturl/:shortUrl', function (req, res) {
         });
     }
 });
-
-// end
 
 app.listen(port, function () {
     console.log(`Listening on port ${port}`);
