@@ -22,7 +22,7 @@ app.get('/api/hello', function (req, res) {
 const urlMappings = {};
 let urlCounter = 1;
 
-// function isValidUrl(url) {
+// function isValidUrlFormat(url) {
 //     const urlPattern =
 //         /^(http:\/\/|https:\/\/)(www\.)?[a-zA-Z0-9-]{1,63}\.[a-zA-Z]{2,6}$/;
 //     console.log('received url test result: ', urlPattern.test(url));
@@ -30,9 +30,9 @@ let urlCounter = 1;
 // }
 
 function validateUrl(url, callback) {
-    if (!isValidUrlFormat(url)) {
-        return callback('Invalid URL format');
-    }
+    // if (!isValidUrlFormat(url)) {
+    //     return callback('Invalid URL format');
+    // }
 
     try {
         const urlObj = new URL(url);
