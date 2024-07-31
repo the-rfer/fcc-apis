@@ -18,9 +18,10 @@ app.get('/api/hello', function (req, res) {
 
 app.get('/api/:date?', (req, res) => {
     let dateParam = req.params.date;
+    console.log('params: ', dateParam);
     let date;
 
-    if (!dateParam) {
+    if (dateParam === 'date') {
         date = new Date();
     } else {
         if (!isNaN(dateParam)) {
