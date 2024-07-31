@@ -22,44 +22,44 @@ app.get('/api/hello', function (req, res) {
 const urlMappings = {};
 let urlCounter = 1;
 
-// function isValidUrlFormat(url) {
-//     const urlPattern =
-//         /^(http:\/\/|https:\/\/)(www\.)?[a-zA-Z0-9-]{1,63}\.[a-zA-Z]{2,6}$/;
-//     console.log('received url test result: ', urlPattern.test(url));
-//     return urlPattern.test(url);
+function isValidUrlFormat(url) {
+    const urlPattern =
+        /^(http:\/\/|https:\/\/)(www\.)?[a-zA-Z0-9-]{1,63}\.[a-zA-Z]{2,6}$/;
+    console.log('received url test result: ', urlPattern.test(url));
+    return urlPattern.test(url);
+}
+
+// function validateUrl(url, callback) {
+// if (!isValidUrlFormat(url)) {
+//     return callback('Invalid URL format');
 // }
 
-function validateUrl(url, callback) {
-    // if (!isValidUrlFormat(url)) {
-    //     return callback('Invalid URL format');
-    // }
-
-    try {
-        const urlObj = new URL(url);
-        dns.lookup(urlObj.hostname, (err, address) => {
-            if (err || !address) {
-                return callback('Invalid URL: DNS lookup failed');
-            }
-            callback(null);
-        });
-    } catch (error) {
-        callback('Invalid URL: Parsing failed');
-    }
-}
+//     try {
+//         const urlObj = new URL(url);
+//         dns.lookup(urlObj.hostname, (err, address) => {
+//             if (err || !address) {
+//                 return callback('Invalid URL: DNS lookup failed');
+//             }
+//             callback(null);
+//         });
+//     } catch (error) {
+//         callback('Invalid URL: Parsing failed');
+//     }
+// }
 
 app.post('/api/shorturl', function (req, res) {
     const { url } = req.body;
     console.log('url being used: ', url);
 
-    // if (!isValidUrl(url)) {
-    //     return res.json({ error: 'invalid url' });
-    // }
+    if (!isValidUrlFormat(url)) {
+        return res.json({ error: 'invalid url' });
+    }
 
-    validateUrl(url, (error) => {
-        if (error) {
-            return res.json({ error: 'invalid url' });
-        }
-    });
+    // validateUrl(url, (error) => {
+    //     if (error) {
+    //         return res.json({ error: 'invalid url' });
+    //     }
+    // });
 
     const shortUrl = urlCounter++;
     urlMappings[shortUrl] = url;
