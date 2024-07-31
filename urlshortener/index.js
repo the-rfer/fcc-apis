@@ -23,12 +23,9 @@ const urlMappings = {};
 let urlCounter = 1;
 
 function isValidUrl(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch {
-        return false;
-    }
+    const urlPattern =
+        /^(http:\/\/www\.|https:\/\/www\.)[a-zA-Z0-9-]{1,63}\.[a-zA-Z]{2,6}$/;
+    return urlPattern.test(url);
 }
 
 app.post('/api/shorturl', function (req, res) {
