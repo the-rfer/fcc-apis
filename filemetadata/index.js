@@ -5,8 +5,7 @@ require('dotenv').config();
 
 var app = express();
 
-// Configure multer
-var upload = multer({ dest: 'uploads/' }); // Files will be uploaded to 'uploads' directory
+var upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -15,18 +14,26 @@ app.get('/', function (req, res) {
     res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// Handle file upload
-app.post('/upload', upload.single('upfile'), function (req, res) {
+app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
 
     const file = req.file;
-    res.json({
-        name: file.originalname,
-        type: file.mimetype,
-        size: file.size,
-    });
+
+    let resObj = {};
+
+    resObj['name'] = file.originalname;
+    resObj['type'] = file.mimetype;
+    resObj['size'] = file.size;
+
+    // res.json({
+    //     name: file.originalname,
+    //     type: file.mimetype,
+    //     size: file.size,
+    // });
+
+    res.json(resObj);
 });
 
 const port = process.env.PORT || 3000;
