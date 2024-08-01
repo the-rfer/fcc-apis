@@ -98,6 +98,17 @@ app.get('/api/users/:_id/logs', async (req, res) => {
     }
 });
 
+app.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find({}, 'username _id');
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({
+            error: 'An error occurred while fetching users',
+        });
+    }
+});
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
